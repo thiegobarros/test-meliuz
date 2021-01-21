@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {
+  Title
+} from './styles';
 
-function Details() {
-  return (
-    <p>detalhes</p>
-  );
+class Details extends Component {
+  render() {
+    return (
+      <Title>Detalhes</Title>
+    );
+  }
 }
 
 export default Details;

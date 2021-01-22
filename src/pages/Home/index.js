@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from '../../Api';
 import {
     Title
 } from './styles';
@@ -7,29 +8,29 @@ import Card from '../../components/Card';
 import Table from '../../components/Table';
 
 class Home extends Component {
+
+    state = {
+      listagem: []
+    }
+
+    async componentDidMount() {
+      const response = await api.get('');
+      this.setState({
+        listagem: response.data.results
+      })
+    }
+
     render() {
-        const data = [
-            {
-              "Country Name": "Afghanistan",
-              Capital: "Kabul",
-              Currency: "Afghani"
-            },
-            {
-              "Country Name": "Albania",
-              Capital: "Tirane",
-              Currency: "Lek"
-            },
-            {
-              "Country Name": "Algeria",
-              Capital: "Algiers",
-              Currency: "Dinar"
-            }
-        ];
+        const { listagem } = this.state;
+
+        const titles = [
+          "name", "gender", "real_name", "aliases", "birth"
+        ]
         return (
           <Body>
-              <Title>Listagem</Title>
+              <Title>Character Listing</Title>
               <Card>
-                  <Table data={data}></Table>
+                  <Table titles={titles} data={listagem}></Table>
               </Card>
           </Body>
         );

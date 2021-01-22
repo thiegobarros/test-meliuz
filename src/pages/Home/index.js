@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import api from '../../Api';
 import {
-    Title
+    Title,
+    StyledDivSearch,
+    StyledInputSearch,
+    StyledButtonSearch
 } from './styles';
 import Body from '../../components/Body';
 import Card from '../../components/Card';
@@ -30,7 +33,11 @@ class Home extends Component {
           <Body>
               <Title>Character Listing</Title>
               <Card>
-                  <Table titles={titles} data={listagem}></Table>
+                <StyledDivSearch>
+                  <StyledInputSearch></StyledInputSearch>
+                  <StyledButtonSearch>Search</StyledButtonSearch>
+                </StyledDivSearch>
+                <Table titles={titles} data={listagem}></Table>
               </Card>
           </Body>
         );

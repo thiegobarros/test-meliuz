@@ -73,3 +73,9 @@ export const StyledLink = styled(Link)`
 export const StyledTd = styled.td`
     text-align: center;
 `;
+
+export const StyledEmptyTd = styled.td`
+    text-align: center;
+    font-weight: bold;
+    color: #D3D3D3;
+`;

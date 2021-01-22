@@ -16,7 +16,7 @@ class Details extends Component {
   render() {
     return (
       <Body>
-          <Title>Detalhes de {this.state.id}</Title>
+          <Title>Datails of {this.state.id}</Title>
           <Card>
           </Card>
       </Body>

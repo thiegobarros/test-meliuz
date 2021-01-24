@@ -1,6 +1,6 @@
-const toDetailsReducer = (state = '', action) => {
+const toDetailsReducer = (state = {}, action) => {
     switch(action.type) {
-        case "url":
+        case "character":
             return state = action.payload;
         default:
             return state;

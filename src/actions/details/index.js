@@ -1,6 +1,6 @@
-export const url = url => {
+export const character = elem => {
     return {
-        type: 'url',
-        payload: url
+        type: 'character',
+        payload: elem
     };
 };

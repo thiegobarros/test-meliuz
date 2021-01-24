@@ -8,81 +8,100 @@ import {
     FavoriteButton
 } from './styles';
 import { connect } from "react-redux";
-import { url } from "../../actions/details";
+import { character } from "../../actions/details";
+import {
+    remove,
+    edit
+} from "../../actions/data";
 
 class Table extends Component {
     constructor(props) {
         super(props);
     }
+
+    componentDidUpdate() {
+        console.log(this.props.tableFavorites)
+    }
+
     render() {
         const arrayGender = {
             '0': 'Genderless',
             '1': 'Male',
             '2': 'Female'
         };
-        const favorite = (id) => {
-            let favorites = localStorage.hasOwnProperty('favorites') ? JSON.parse(localStorage.getItem('favorites')) : new Array()
-            if (favorites.includes(id)) {
-                let index = favorites.indexOf(id);
-                if (index > -1) favorites.splice(index, 1);
-            } else {
-                favorites.push(id);
-            }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
+        
+        const favorite = (elem) => {
+            elem.favorite = true;
+            this.props.edit(elem);
+            console.log(this.props.data);
         };
+
+        const remove = (id) => {
+            this.props.remove(id);
+        }
+
         return (
-            <StyledTable>
-                <thead>
-                    <tr>
-                        {this.props.titles.map((title, index) => (
-                            <th key={index}>{title.replace('_', ' ').toUpperCase()}</th>
-                        ))}
-                        <th>ACTIONS</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { this.props.data.length === 0 ? (
+            <div>
+                <p>{Object.keys(this.props.data).length} Character(s)</p>
+                <StyledTable>
+                    <thead>
                         <tr>
-                            <StyledEmptyTd colSpan={this.props.titles.length+1}>Empty</StyledEmptyTd>
+                            {this.props.titles.map((title, index) => (
+                                <th key={index}>{title.replace('_', ' ').toUpperCase()}</th>
+                            ))}
+                            <th>ACTIONS</th>
                         </tr>
-                    ):(
-                        this.props.data.map((item, index) => (
-                            <tr key={index}>
-                                {this.props.titles.map((title, index) => {
-                                    let elem = item[title];
-                                    switch (title) {
-                                        case 'gender':
-                                            elem = arrayGender[item[title]];
-                                    }
-                                    return <td key={index}>{elem ?? '-'}</td>
-                                })}
-                                <StyledTd key={index}>
-                                    <DetailsButton onClick={() => this.props.url(item['api_detail_url'])}>
-                                        {/* <StyledLink to={{pathname:'/details/'+index, search:'?url='+item['api_detail_url']}}>Details</StyledLink> */}
-                                        <StyledLink to={{pathname:'/details'}}>Details</StyledLink>
-                                    </DetailsButton>
-                                    <FavoriteButton onClick={() => favorite(item['id'])}>
-                                        Star
-                                    </FavoriteButton>
-                                </StyledTd>
+                        </thead>
+                        <tbody>
+                        { Object.keys(this.props.data).length === 0 ? (
+                            <tr>
+                                <StyledEmptyTd colSpan={this.props.titles.length+1}>Empty</StyledEmptyTd>
                             </tr>
-                        ))
-                    )}
-                </tbody>
-            </StyledTable>
+                        ):(
+                            this.props.data.map((item, index) => (
+                                <tr item={item} key={item['id']} style={{visibility: this.props.tableFavorites && !item['favorite'] ? 'collapse' : 'visible'}}>
+                                    {this.props.titles.map((title, index) => {
+                                        let elem = item[title];
+                                        switch (title) {
+                                            case 'gender':
+                                                elem = arrayGender[item[title]];
+                                        }
+                                        return <td key={index}>{elem ?? '-'}</td>
+                                    })}
+                                    <StyledTd key={index}>
+                                        <DetailsButton onClick={() => this.props.character(item)}>
+                                            <StyledLink to={{pathname:'/details'}}>Details</StyledLink>
+                                        </DetailsButton>
+                                        <FavoriteButton onClick={() => favorite(item)}>
+                                            Star
+                                        </FavoriteButton>
+                                        <FavoriteButton onClick={() => remove(item['id'])}>
+                                            Trash
+                                        </FavoriteButton>
+                                    </StyledTd>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </StyledTable>
+            </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-      toDetails: state.toDetails
+      toDetails: state.toDetails,
+      data:  state.data,
+      tableFavorites: state.tableFavorites
     }
   }
   
 const mapDispatchToProps = () => {
     return {
-        url
+        character,
+        remove,
+        edit
     }
 }
 

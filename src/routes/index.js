@@ -7,7 +7,7 @@ function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/details/:id" exact component={Details} />
+      <Route path="/details" exact component={Details} />
     </Switch>
   );
 }

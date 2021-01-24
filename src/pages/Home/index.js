@@ -9,39 +9,48 @@ import {
 import Body from '../../components/Body';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
+import { connect } from "react-redux";
+import { add } from "../../actions/data";
 
 class Home extends Component {
 
-    state = {
-      listagem: []
-    }
+  async componentDidMount() {
+    await api.get('characters')
+    .then(response => {
+      this.props.add(response.data.results);
+    });
+  }
 
-    async componentDidMount() {
-      const response = await api.get('');
-      this.setState({
-        listagem: response.data.results
-      })
-    }
+  render() {
+    const titles = [
+      "name", "gender", "real_name", "aliases", "birth"
+    ];
 
-    render() {
-        const { listagem } = this.state;
-
-        const titles = [
-          "name", "gender", "real_name", "aliases", "birth"
-        ]
-        return (
-          <Body>
-              <Title>Character Listing</Title>
-              <Card>
-                <StyledDivSearch>
-                  <StyledInputSearch></StyledInputSearch>
-                  <StyledButtonSearch>Search</StyledButtonSearch>
-                </StyledDivSearch>
-                <Table titles={titles} data={listagem}></Table>
-              </Card>
-          </Body>
-        );
-    }
+    return (
+      <Body>
+        <Title>Character Listing</Title>
+        <Card>
+          <StyledDivSearch>
+            <StyledInputSearch></StyledInputSearch>
+            <StyledButtonSearch>Search</StyledButtonSearch>
+          </StyledDivSearch>
+          <Table titles={titles} data={this.props.data}></Table>
+        </Card>
+      </Body>
+    );
+  }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    data: state.data
+  }
+}
+
+const mapDispatchToProps = () => {
+  return {
+    add
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps())(Home);

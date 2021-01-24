@@ -79,3 +79,14 @@ export const StyledEmptyTd = styled.td`
     font-weight: bold;
     color: #D3D3D3;
 `;
+
+export const FavoriteButton = styled.button`
+    background-color: DodgerBlue;
+    padding: 2%;
+    color: white;
+    font-weight: bold;
+    border-radius: 5%;
+    :hover{
+        background-color: SteelBlue;
+    }
+`;

@@ -4,14 +4,32 @@ import {
     DetailsButton,
     StyledLink,
     StyledTd,
-    StyledEmptyTd
-} from './styles'
+    StyledEmptyTd,
+    FavoriteButton
+} from './styles';
+import { connect } from "react-redux";
+import { url } from "../../actions/details";
 
-class Card extends Component {
+class Table extends Component {
     constructor(props) {
         super(props);
     }
     render() {
+        const arrayGender = {
+            '0': 'Genderless',
+            '1': 'Male',
+            '2': 'Female'
+        };
+        const favorite = (id) => {
+            let favorites = localStorage.hasOwnProperty('favorites') ? JSON.parse(localStorage.getItem('favorites')) : new Array()
+            if (favorites.includes(id)) {
+                let index = favorites.indexOf(id);
+                if (index > -1) favorites.splice(index, 1);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        };
         return (
             <StyledTable>
                 <thead>
@@ -23,20 +41,29 @@ class Card extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    { this.props.data.length == 0 ? (
+                    { this.props.data.length === 0 ? (
                         <tr>
                             <StyledEmptyTd colSpan={this.props.titles.length+1}>Empty</StyledEmptyTd>
                         </tr>
                     ):(
                         this.props.data.map((item, index) => (
                             <tr key={index}>
-                                {this.props.titles.map((title, index) => (
-                                    <td key={index}>{item[title] ?? '-'}</td>
-                                ))}
-                                <StyledTd>
-                                    <DetailsButton>
-                                        <StyledLink to={'/details/'+index}>Details</StyledLink>
+                                {this.props.titles.map((title, index) => {
+                                    let elem = item[title];
+                                    switch (title) {
+                                        case 'gender':
+                                            elem = arrayGender[item[title]];
+                                    }
+                                    return <td key={index}>{elem ?? '-'}</td>
+                                })}
+                                <StyledTd key={index}>
+                                    <DetailsButton onClick={() => this.props.url(item['api_detail_url'])}>
+                                        {/* <StyledLink to={{pathname:'/details/'+index, search:'?url='+item['api_detail_url']}}>Details</StyledLink> */}
+                                        <StyledLink to={{pathname:'/details'}}>Details</StyledLink>
                                     </DetailsButton>
+                                    <FavoriteButton onClick={() => favorite(item['id'])}>
+                                        Star
+                                    </FavoriteButton>
                                 </StyledTd>
                             </tr>
                         ))
@@ -47,4 +74,16 @@ class Card extends Component {
     }
 }
 
-export default Card
+const mapStateToProps = (state) => {
+    return {
+      toDetails: state.toDetails
+    }
+  }
+  
+const mapDispatchToProps = () => {
+    return {
+        url
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps())(Table)

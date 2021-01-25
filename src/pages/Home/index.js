@@ -7,7 +7,8 @@ import {
     StyledButton,
     StyledInput,
     StyledSelect,
-    Styledlabel
+    Styledlabel,
+    StyledClearButton
 } from './styles';
 import Body from '../../components/Body';
 import Card from '../../components/Card';
@@ -17,7 +18,8 @@ import { connect } from "react-redux";
 import {
   get,
   add,
-  filter
+  filter,
+  clear
 } from "../../actions/data";
 import {
   set,
@@ -93,6 +95,7 @@ class Home extends Component {
 
   clear = () => {
     this.props.search(false);
+    this.props.clear();
     let searchField = document.getElementById("search");
     searchField.value = "";
   }
@@ -111,10 +114,10 @@ class Home extends Component {
       <Body>
         <Title>Character Listing</Title>
         <Card>
-          <StyledButton onClick={this.toggleState}>
+          <StyledButton title="Add a Character" onClick={this.toggleState}>
             <i className="fas fa-plus"></i> Add
           </StyledButton>
-          <StyledButton onClick={this.viewFav}>
+          <StyledButton title="Filter the Favorites" onClick={this.viewFav}>
           <i className="fas fa-star"></i> Favorites
           </StyledButton>
           {this.state.isModalOpen && (
@@ -144,13 +147,13 @@ class Home extends Component {
             </Modal>
           )}
           <StyledDivSearch>
-            <StyledButton onClick={this.clear}>
-              <i className="fas fa-trash"></i> Clear
-            </StyledButton>
-            <StyledInputSearch id="search" onChange={this.filterData}></StyledInputSearch>
-            <StyledButton onClick={this.search}>
+            <StyledInputSearch id="search" onChange={this.filterData} placeholder="Search above 3 characters"></StyledInputSearch>
+            <StyledButton title="Search in Table" onClick={this.search}>
               <i className="fas fa-search"></i> Search
             </StyledButton>
+            <StyledClearButton title="Clear Search" onClick={this.clear}>
+              <i className="fas fa-trash"></i> Clear
+            </StyledClearButton>
           </StyledDivSearch>
           <Table titles={titles}></Table>
         </Card>
@@ -173,7 +176,8 @@ const mapDispatchToProps = () => {
     add,
     setFavorites: set,
     search,
-    filter
+    filter,
+    clear
   }
 }
 

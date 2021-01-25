@@ -32,3 +32,9 @@ export const filter = elem => {
         payload: elem
     };
 };
+
+export const clear = () => {
+    return {
+        type: 'clear'
+    };
+};

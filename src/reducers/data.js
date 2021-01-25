@@ -24,6 +24,12 @@ const dataReducer = (state = [], action) => {
                 return item;
             });
             return [...filtered];
+        case "clear":
+            let cleaned = state.map(item => {
+                item.filtered = false;
+                return item;
+            });
+            return [...cleaned];
         default:
             return state;
     }

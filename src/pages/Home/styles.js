@@ -62,3 +62,18 @@ export const Styledlabel = styled.label`
     font-weight: 600;
     margin: 3px 0;
 `;
+
+export const StyledClearButton = styled.button`
+    cursor: pointer;
+    background-color: #ff3859;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ff3859;
+    outline: none;
+    margin-right: 5px;
+    :hover{
+        background-color: #e11;
+    }
+`;

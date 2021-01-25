@@ -16,10 +16,12 @@ import Modal from '../../components/Modal';
 import { connect } from "react-redux";
 import {
   get,
-  add
+  add,
+  filter
 } from "../../actions/data";
 import {
-  set
+  set,
+  search
 } from "../../actions/table";
 
 class Home extends Component {
@@ -85,6 +87,21 @@ class Home extends Component {
     this.props.setFavorites();
   }
 
+  search = () => {
+    this.props.search(true);
+  }
+
+  clear = () => {
+    this.props.search(false);
+    let searchField = document.getElementById("search");
+    searchField.value = "";
+  }
+
+  filterData = (event) => {
+    if (event.target.value.length < 3) return;
+    this.props.filter(event.target.value);
+  }
+
   render() {
     const titles = [
       "name", "gender", "real_name", "aliases", "birth"
@@ -127,8 +144,11 @@ class Home extends Component {
             </Modal>
           )}
           <StyledDivSearch>
-            <StyledInputSearch></StyledInputSearch>
-            <StyledButton>
+            <StyledButton onClick={this.clear}>
+              <i className="fas fa-trash"></i> Clear
+            </StyledButton>
+            <StyledInputSearch id="search" onChange={this.filterData}></StyledInputSearch>
+            <StyledButton onClick={this.search}>
               <i className="fas fa-search"></i> Search
             </StyledButton>
           </StyledDivSearch>
@@ -142,7 +162,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     data: state.data,
-    tableFavorites: state.tableFavorites
+    tableFavorites: state.tableFavorites,
+    searchData: state.searchData
   }
 }
 
@@ -150,7 +171,9 @@ const mapDispatchToProps = () => {
   return {
     get,
     add,
-    setFavorites: set
+    setFavorites: set,
+    search,
+    filter
   }
 }
 

@@ -25,3 +25,10 @@ export const edit = elem => {
         payload: elem
     };
 };
+
+export const filter = elem => {
+    return {
+        type: 'filter',
+        payload: elem
+    };
+};

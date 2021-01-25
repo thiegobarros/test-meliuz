@@ -41,7 +41,6 @@ class Table extends Component {
         }
 
         const toDetails = (item) => {
-            console.log("clicou na tr");
             this.props.character(item);
             this.props.history.push('/details');
         }
@@ -65,7 +64,10 @@ class Table extends Component {
                             </tr>
                         ):(
                             this.props.data.map((item, index) => (
-                                <tr item={item} key={item['id']} style={{visibility: this.props.tableFavorites && !item['favorite'] ? 'collapse' : 'visible', cursor:"pointer"}}>
+                                <tr item={item} key={item['id']} style={{
+                                    visibility: (this.props.tableFavorites && !item['favorite']) || (this.props.searchData && !item['filtered']) ? 'collapse' : 'visible',
+                                    cursor:"pointer"
+                                }}>
                                     {this.props.titles.map((title, index) => {
                                         let elem = item[title];
                                         switch (title) {
@@ -96,7 +98,8 @@ const mapStateToProps = (state) => {
     return {
       toDetails: state.toDetails,
       data:  state.data,
-      tableFavorites: state.tableFavorites
+      tableFavorites: state.tableFavorites,
+      searchData: state.searchData
     }
   }
   

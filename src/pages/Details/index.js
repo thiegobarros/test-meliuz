@@ -73,7 +73,7 @@ class Details extends Component {
     };
     return (
       <Body>
-          <Title>Details of {this.state.details.name}</Title>
+          <Title>{this.state.details.name} Details</Title>
           <Card>
             <StyledDivResponsive>
               <Link to='/'>

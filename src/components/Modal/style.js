@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Modal = styled.div`
+export const StyledModal = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -90,4 +90,17 @@ const Modal = styled.div`
   }
 `;
 
-export default Modal;
+export const StyledButton = styled.button`
+    cursor: pointer;
+    background-color: DodgerBlue;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: 1px solid SteelBlue;
+    outline: none;
+    margin-right: 5px;
+    :hover{
+        background-color: SteelBlue;
+    }
+`;

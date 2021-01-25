@@ -4,7 +4,10 @@ import {
     Title,
     StyledDivSearch,
     StyledInputSearch,
-    StyledButtonSearch
+    StyledButton,
+    StyledInput,
+    StyledSelect,
+    Styledlabel
 } from './styles';
 import Body from '../../components/Body';
 import Card from '../../components/Card';
@@ -85,8 +88,12 @@ class Home extends Component {
       <Body>
         <Title>Character Listing</Title>
         <Card>
-          <button onClick={this.toggleState}>Add</button>
-          <button onClick={this.viewFav}>favorites</button>
+          <StyledButton onClick={this.toggleState}>
+            <i className="fas fa-plus"></i> Add
+          </StyledButton>
+          <StyledButton onClick={this.viewFav}>
+          <i className="fas fa-star"></i> Favorites
+          </StyledButton>
           {this.state.isModalOpen && (
             <Modal
               id="modal"
@@ -96,26 +103,28 @@ class Home extends Component {
               onSave={this.addChar}
             >
               <div className="box-body">
-                <label>Name</label><br/>
-                <input name="name" value={this.state.name} onChange={this.handleInputChange}></input><br/>
-                <label>Gender</label><br/>
-                <select name="gender" value={this.state.gender} onChange={this.handleInputChange}>
+                <Styledlabel>Name</Styledlabel><br/>
+                <StyledInput name="name" value={this.state.name} onChange={this.handleInputChange}></StyledInput><br/>
+                <Styledlabel>Gender</Styledlabel><br/>
+                <StyledSelect name="gender" value={this.state.gender} onChange={this.handleInputChange}>
                   <option value={1}>Male</option>
                   <option value={2}>Female</option>
                   <option value={0}>Genderless</option>
-                </select><br/>
-                <label>Real Name</label><br/>
-                <input name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></input><br/>
-                <label>Aliases</label><br/>
-                <input name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></input><br/>
-                <label>Birth</label><br/>
-                <input name="birth" value={this.state.birth} onChange={this.handleInputChange}></input><br/>
+                </StyledSelect><br/>
+                <Styledlabel>Real Name</Styledlabel><br/>
+                <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
+                <Styledlabel>Aliases</Styledlabel><br/>
+                <StyledInput name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></StyledInput><br/>
+                <Styledlabel>Birth</Styledlabel><br/>
+                <StyledInput name="birth" value={this.state.birth} onChange={this.handleInputChange}></StyledInput><br/>
               </div>
             </Modal>
           )}
           <StyledDivSearch>
             <StyledInputSearch></StyledInputSearch>
-            <StyledButtonSearch>Search</StyledButtonSearch>
+            <StyledButton>
+              <i className="fas fa-search"></i> Search
+            </StyledButton>
           </StyledDivSearch>
           <Table titles={titles}></Table>
         </Card>

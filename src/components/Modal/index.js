@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
-import StyledModal from "./style";
+import {
+  StyledModal,
+  StyledButton
+} from "./style";
 
 const modalRoot = document.getElementById("root");
 
@@ -62,15 +65,15 @@ class Modal extends Component {
         <div className="box-dialog">
           <div className="box-header">
             <h4 className="box-title">{this.props.title}</h4>
-            <button onClick={this.handleClick} className="close">
-              ×
-            </button>
+            <StyledButton onClick={this.handleClick} className="close">
+              <i className="fas fa-times"></i>
+            </StyledButton>
           </div>
           <div className="box-content">{this.props.children}</div>
           <div className="box-footer">
-            <button onClick={this.props.onSave} className="close">
-              Save
-            </button>
+            <StyledButton onClick={this.props.onSave} className="close">
+              <i className="fas fa-save"></i> Save
+            </StyledButton>
           </div>
         </div>
         <div

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import api from '../../Api';
 import {
-  Title
+  Title,
+  StyledButton,
+  StyledInput,
+  StyledSelect,
+  Styledlabel
 } from './styles';
 import Body from '../../components/Body';
 import Card from '../../components/Card';
@@ -68,10 +72,14 @@ class Details extends Component {
           <Title>Details of {this.state.details.name}</Title>
           <Card>
             <div>
-              <button>
-                <Link to='/'>Back</Link>
-              </button>
-              <button onClick={this.toggleState}>Edit</button>
+              <Link to='/'>
+                <StyledButton>
+                  <i className="fas fa-reply"></i> Back
+                </StyledButton>
+              </Link>
+              <StyledButton onClick={this.toggleState}>
+                <i className="fas fa-edit"></i> Edit
+              </StyledButton>
               {this.state.isModalOpen && (
                 <Modal
                   id="modal"
@@ -81,20 +89,20 @@ class Details extends Component {
                   onSave={this.editChar}
                 >
                   <div className="box-body">
-                    <label>Name</label><br/>
-                    <input name="name" value={this.state.name} onChange={this.handleInputChange}></input><br/>
-                    <label>Gender</label><br/>
-                    <select name="gender" value={this.state.gender} onChange={this.handleInputChange}>
+                    <Styledlabel>Name</Styledlabel><br/>
+                    <StyledInput name="name" value={this.state.name} onChange={this.handleInputChange}></StyledInput><br/>
+                    <Styledlabel>Gender</Styledlabel><br/>
+                    <StyledSelect name="gender" value={this.state.gender} onChange={this.handleInputChange}>
                       <option value={1}>Male</option>
                       <option value={2}>Female</option>
                       <option value={0}>Genderless</option>
-                    </select><br/>
-                    <label>Real Name</label><br/>
-                    <input name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></input><br/>
-                    <label>Aliases</label><br/>
-                    <input name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></input><br/>
-                    <label>Birth</label><br/>
-                    <input name="birth" value={this.state.birth} onChange={this.handleInputChange}></input><br/>
+                    </StyledSelect><br/>
+                    <Styledlabel>Real Name</Styledlabel><br/>
+                    <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
+                    <Styledlabel>Aliases</Styledlabel><br/>
+                    <StyledInput name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></StyledInput><br/>
+                    <Styledlabel>Birth</Styledlabel><br/>
+                    <StyledInput name="birth" value={this.state.birth} onChange={this.handleInputChange}></StyledInput><br/>
                   </div>
                 </Modal>
               )}

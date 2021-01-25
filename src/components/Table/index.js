@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link, withRouter } from 'react-router-dom';
 import {
     StyledTable,
-    DetailsButton,
-    StyledLink,
     StyledTd,
     StyledEmptyTd,
-    FavoriteButton
+    FavoriteButton,
+    TrashButton,
+    TableResponsive
 } from './styles';
 import { connect } from "react-redux";
 import { character } from "../../actions/details";
@@ -14,16 +15,16 @@ import {
     edit
 } from "../../actions/data";
 
+const posto = withRouter(({ history, location }) =>{
+
+})
 class Table extends Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidUpdate() {
-        console.log(this.props.tableFavorites)
-    }
-
     render() {
+
         const arrayGender = {
             '0': 'Genderless',
             '1': 'Male',
@@ -31,17 +32,22 @@ class Table extends Component {
         };
         
         const favorite = (elem) => {
-            elem.favorite = true;
+            elem.favorite = !elem.favorite;
             this.props.edit(elem);
-            console.log(this.props.data);
         };
 
         const remove = (id) => {
             this.props.remove(id);
         }
 
+        const toDetails = (item) => {
+            console.log("clicou na tr");
+            this.props.character(item);
+            this.props.history.push('/details');
+        }
+
         return (
-            <div>
+            <TableResponsive>
                 <p>{Object.keys(this.props.data).length} Character(s)</p>
                 <StyledTable>
                     <thead>
@@ -59,32 +65,29 @@ class Table extends Component {
                             </tr>
                         ):(
                             this.props.data.map((item, index) => (
-                                <tr item={item} key={item['id']} style={{visibility: this.props.tableFavorites && !item['favorite'] ? 'collapse' : 'visible'}}>
+                                <tr item={item} key={item['id']} style={{visibility: this.props.tableFavorites && !item['favorite'] ? 'collapse' : 'visible', cursor:"pointer"}}>
                                     {this.props.titles.map((title, index) => {
                                         let elem = item[title];
                                         switch (title) {
                                             case 'gender':
                                                 elem = arrayGender[item[title]];
                                         }
-                                        return <td key={index}>{elem ?? '-'}</td>
+                                        return <td key={index} onClick={()=>toDetails(item)}>{elem ?? '-'}</td>
                                     })}
                                     <StyledTd key={index}>
-                                        <DetailsButton onClick={() => this.props.character(item)}>
-                                            <StyledLink to={{pathname:'/details'}}>Details</StyledLink>
-                                        </DetailsButton>
-                                        <FavoriteButton onClick={() => favorite(item)}>
-                                            Star
+                                        <FavoriteButton onClick={() => favorite(item)} style={{color: item['favorite'] ? '#fc0' : '#ccc'}}>
+                                            <i title="Favorite" className="fas fa-star"></i>
                                         </FavoriteButton>
-                                        <FavoriteButton onClick={() => remove(item['id'])}>
-                                            Trash
-                                        </FavoriteButton>
+                                        <TrashButton onClick={() => remove(item['id'])}>
+                                            <i title="Remove" className="fas fa-trash"></i>
+                                        </TrashButton>
                                     </StyledTd>
                                 </tr>
                             ))
                         )}
                     </tbody>
                 </StyledTable>
-            </div>
+            </TableResponsive>
         );
     }
 }
@@ -105,4 +108,4 @@ const mapDispatchToProps = () => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps())(Table)
+export default connect(mapStateToProps, mapDispatchToProps())(withRouter(Table))

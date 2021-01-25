@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const StyledTable = styled.table`
-    width: 100%;
+  width: 100%;
+  min-width: 800px;
   /* caption-side: top; */
   /* border: none; */
   /* border-collapse: collapse; */
@@ -42,7 +43,7 @@ export const StyledTable = styled.table`
       background-color: #efefef;
     }
     :hover {
-      background-color: #FFC0CB;
+      background-color: #FFCDCD;
     }
   }
   thead > tr {
@@ -51,27 +52,10 @@ export const StyledTable = styled.table`
   }
 `;
 
-export const DetailsButton = styled.button`
-    background-color: DodgerBlue;
-    padding: 2%;
-    color: white;
-    font-weight: bold;
-    border-radius: 5%;
-    :hover{
-        background-color: SteelBlue;
-    }
-`;
-
-export const StyledLink = styled(Link)`
-    color: white;
-    text-decoration: none;
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`;
-
 export const StyledTd = styled.td`
-    text-align: center;
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
 `;
 
 export const StyledEmptyTd = styled.td`
@@ -81,12 +65,36 @@ export const StyledEmptyTd = styled.td`
 `;
 
 export const FavoriteButton = styled.button`
-    background-color: DodgerBlue;
-    padding: 2%;
-    color: white;
-    font-weight: bold;
-    border-radius: 5%;
+    margin-top: 5px;
+    background-color: none;
+    background: none;
+    color: #ccc;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
     :hover{
-        background-color: SteelBlue;
+        color: #eb0;
     }
+`;
+
+export const TrashButton = styled.button`
+    margin-top: 5px;
+    background-color: none;
+    background: none;
+    color: #f22;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    :hover{
+        color: #e11;
+    }
+`;
+
+export const TableResponsive= styled.div`
+  overflow: scroll;
+  width: 100%;
+  max-width: 100%;
+  height: 600px;
 `;

@@ -5,7 +5,10 @@ import {
   StyledButton,
   StyledInput,
   StyledSelect,
-  Styledlabel
+  Styledlabel,
+  StyledDiv,
+  StyledDivItens,
+  StyledDivResponsive
 } from './styles';
 import Body from '../../components/Body';
 import Card from '../../components/Card';
@@ -43,6 +46,7 @@ class Details extends Component {
     this.state.details.aliases = this.state.aliases;
     this.state.details.birth = this.state.birth;
     this.props.edit(this.state.details);
+    this.toggleState();
   }
 
   toggleState = e => {
@@ -71,7 +75,7 @@ class Details extends Component {
       <Body>
           <Title>Details of {this.state.details.name}</Title>
           <Card>
-            <div>
+            <StyledDivResponsive>
               <Link to='/'>
                 <StyledButton>
                   <i className="fas fa-reply"></i> Back
@@ -91,14 +95,14 @@ class Details extends Component {
                   <div className="box-body">
                     <Styledlabel>Name</Styledlabel><br/>
                     <StyledInput name="name" value={this.state.name} onChange={this.handleInputChange}></StyledInput><br/>
+                    <Styledlabel>Real Name</Styledlabel><br/>
+                    <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
                     <Styledlabel>Gender</Styledlabel><br/>
                     <StyledSelect name="gender" value={this.state.gender} onChange={this.handleInputChange}>
                       <option value={1}>Male</option>
                       <option value={2}>Female</option>
                       <option value={0}>Genderless</option>
                     </StyledSelect><br/>
-                    <Styledlabel>Real Name</Styledlabel><br/>
-                    <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
                     <Styledlabel>Aliases</Styledlabel><br/>
                     <StyledInput name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></StyledInput><br/>
                     <Styledlabel>Birth</Styledlabel><br/>
@@ -110,16 +114,28 @@ class Details extends Component {
                 this.state.length > 0
                 ? (
                   <div>
-                    <h1>Name</h1>
-                    <p>{this.state.details.name ?? 'No Name'}</p>
-                    <h1>Gender</h1>
-                    <p>{arrayGender[this.state.details.gender] ?? 'No Gender'}</p>
-                    <h1>Real Name</h1>
-                    <p>{this.state.details.real_name ?? 'No Real Name'}</p>
-                    <h1>Aliases</h1>
-                    <p>{this.state.details.aliases ?? 'No Aliases'}</p>
-                    <h1>Birth</h1>
-                    <p>{this.state.details.birth ?? 'No Birth'}</p>
+                    <StyledDiv>
+                      <StyledDivItens>
+                        <h1>Name</h1>
+                        <p>{this.state.details.name ?? 'No Name'}</p>
+                      </StyledDivItens>
+                      <StyledDivItens>
+                        <h1>Real Name</h1>
+                        <p>{this.state.details.real_name ?? 'No Real Name'}</p>
+                      </StyledDivItens>
+                      <StyledDivItens>
+                        <h1>Gender</h1>
+                        <p>{arrayGender[this.state.details.gender] ?? 'No Gender'}</p>
+                      </StyledDivItens>
+                      <StyledDivItens>
+                        <h1>Birth</h1>
+                        <p>{this.state.details.birth ?? 'No Birth'}</p>
+                      </StyledDivItens>
+                      <StyledDivItens>
+                        <h1>Aliases</h1>
+                        <p>{this.state.details.aliases ?? 'No Aliases'}</p>
+                      </StyledDivItens>
+                    </StyledDiv>
                     <div id="desc">
                       <h1>Description</h1>
                     </div>
@@ -127,7 +143,7 @@ class Details extends Component {
                 )
                 : ''
               }
-            </div>
+            </StyledDivResponsive>
             
           </Card>
       </Body>

@@ -48,3 +48,16 @@ export const Styledlabel = styled.label`
     font-weight: 600;
     margin: 3px 0;
 `;
+
+export const StyledDiv = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+export const StyledDivItens = styled.div`
+    min-width: 320px;
+`;
+
+export const StyledDivResponsive = styled.div`
+    overflow-x: scroll;
+`;

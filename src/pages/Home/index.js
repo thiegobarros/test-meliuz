@@ -29,7 +29,7 @@ class Home extends Component {
     this.state = {
       isModalOpen: false,
       name: "",
-      gender: "",
+      gender: 0,
       real_name: "",
       aliases: "",
       birth: ""
@@ -40,7 +40,12 @@ class Home extends Component {
 
   toggleState = e => {
     this.setState({
-      isModalOpen: !this.state.isModalOpen
+      isModalOpen: !this.state.isModalOpen,
+      name: "",
+      gender: 0,
+      real_name: "",
+      aliases: "",
+      birth: ""
     });
   };
 
@@ -63,6 +68,7 @@ class Home extends Component {
       birth: this.state.birth,
       id: 2000 + Math.floor((9999 - 2000) * Math.random())
     });
+    this.toggleState();
   }
 
   handleInputChange(event) {
@@ -104,15 +110,15 @@ class Home extends Component {
             >
               <div className="box-body">
                 <Styledlabel>Name</Styledlabel><br/>
-                <StyledInput name="name" value={this.state.name} onChange={this.handleInputChange}></StyledInput><br/>
+                <StyledInput required name="name" value={this.state.name} onChange={this.handleInputChange}></StyledInput><br/>
+                <Styledlabel>Real Name</Styledlabel><br/>
+                <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
                 <Styledlabel>Gender</Styledlabel><br/>
                 <StyledSelect name="gender" value={this.state.gender} onChange={this.handleInputChange}>
                   <option value={1}>Male</option>
                   <option value={2}>Female</option>
                   <option value={0}>Genderless</option>
                 </StyledSelect><br/>
-                <Styledlabel>Real Name</Styledlabel><br/>
-                <StyledInput name="real_name" value={this.state.real_name} onChange={this.handleInputChange}></StyledInput><br/>
                 <Styledlabel>Aliases</Styledlabel><br/>
                 <StyledInput name="aliases" value={this.state.aliases} onChange={this.handleInputChange}></StyledInput><br/>
                 <Styledlabel>Birth</Styledlabel><br/>

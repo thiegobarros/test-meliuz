@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  overflow-y: scroll;
+  max-height: 200px;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.1);

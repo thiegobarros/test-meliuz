@@ -16,7 +16,7 @@ const dataReducer = (state = [], action) => {
             return [action.payload, ...updated];
         case "filter":
             let filtered = state.map(item => {
-                if (item.name.includes(action.payload)) {
+                if (item.name.toUpperCase().includes(action.payload.toUpperCase())) {
                     item.filtered = true; 
                 } else {
                     item.filtered = false;

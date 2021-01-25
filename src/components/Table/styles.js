@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const StyledTable = styled.table`
   width: 100%;
@@ -39,9 +38,7 @@ export const StyledTable = styled.table`
   }
 
   tbody tr {
-    :nth-of-type(odd) {
-      background-color: #efefef;
-    }
+    background-color: #efefef;
     :hover {
       background-color: #FFCDCD;
     }

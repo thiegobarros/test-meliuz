@@ -15,9 +15,6 @@ import {
     edit
 } from "../../actions/data";
 
-const posto = withRouter(({ history, location }) =>{
-
-})
 class Table extends Component {
     constructor(props) {
         super(props);

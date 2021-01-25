@@ -7,8 +7,10 @@ export const Title = styled.h1`
 `;
 
 export const StyledDivSearch = styled.div`
-    height: 3rem;
+    display: flex;
+    flex-direction: column;
     float: right;
+    margin-bottom: 20px;
 `;
 
 export const StyledInputSearch = styled.input`

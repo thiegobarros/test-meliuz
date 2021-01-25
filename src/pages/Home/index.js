@@ -14,6 +14,7 @@ import Body from '../../components/Body';
 import Card from '../../components/Card';
 import Table from '../../components/Table';
 import Modal from '../../components/Modal';
+import SearchBox from '../../components/SearchBox';
 import { connect } from "react-redux";
 import {
   get,
@@ -36,7 +37,8 @@ class Home extends Component {
       gender: 0,
       real_name: "",
       aliases: "",
-      birth: ""
+      birth: "",
+      filteredData: {}
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -98,11 +100,25 @@ class Home extends Component {
     this.props.clear();
     let searchField = document.getElementById("search");
     searchField.value = "";
+    this.setState({
+      filteredData: {}
+    });
   }
 
   filterData = (event) => {
-    if (event.target.value.length < 3) return;
+    if (event.target.value.length < 1) {
+      this.setState({
+        filteredData: {}
+      });
+      return;
+    } 
     this.props.filter(event.target.value);
+    let filteredData = this.props.data.filter(item => {
+      if (item.filtered == true) return item.name;
+    });
+    this.setState({
+      filteredData: filteredData
+    });
   }
 
   render() {
@@ -147,13 +163,18 @@ class Home extends Component {
             </Modal>
           )}
           <StyledDivSearch>
-            <StyledInputSearch id="search" onChange={this.filterData} placeholder="Search above 3 characters"></StyledInputSearch>
-            <StyledButton title="Search in Table" onClick={this.search}>
-              <i className="fas fa-search"></i> Search
-            </StyledButton>
-            <StyledClearButton title="Clear Search" onClick={this.clear}>
-              <i className="fas fa-trash"></i> Clear
-            </StyledClearButton>
+            <div>
+              <StyledInputSearch id="search" onChange={this.filterData} placeholder="Search the Character(s)" autoComplete="off"></StyledInputSearch>
+              <StyledButton title="Search in Table" onClick={this.search}>
+                <i className="fas fa-search"></i> Search
+              </StyledButton>
+              <StyledClearButton title="Clear Search" onClick={this.clear}>
+                <i className="fas fa-trash"></i> Clear
+              </StyledClearButton>
+            </div>
+            <div>
+              <SearchBox data={this.state.filteredData}></SearchBox>
+            </div>
           </StyledDivSearch>
           <Table titles={titles}></Table>
         </Card>

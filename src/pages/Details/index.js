@@ -36,7 +36,9 @@ class Details extends Component {
   }
 
   async componentDidMount() {
-    document.getElementById('desc').innerHTML += this.state.details.description ?? '<h2>No Description</h2>';
+    if (document.getElementById('desc') != null) {
+      document.getElementById('desc').innerHTML += this.state.details.description ?? '<h2>No Description</h2>';
+    }
   }
 
   editChar = () => {

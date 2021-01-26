@@ -21,7 +21,7 @@ class SearchBox extends Component {
             <Container>
                 <ul>
                     {this.props.data.map(item => {
-                        return <li onClick={()=>toDetails(item)}>{item.name}</li>
+                        return <li key={item.id} onClick={()=>toDetails(item)}>{item.name}</li>
                     })}
                 </ul>
             </Container>

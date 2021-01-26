@@ -113,9 +113,7 @@ class Home extends Component {
       return;
     } 
     this.props.filter(event.target.value);
-    let filteredData = this.props.data.filter(item => {
-      if (item.filtered == true) return item.name;
-    });
+    let filteredData = this.props.data.filter(item => (item.filtered === true));
     this.setState({
       filteredData: filteredData
     });
